@@ -1,0 +1,4 @@
+com\last\digital\resources\config\ConnectionDB.class
+com\last\digital\resources\JakartaEE10Resource.class
+com\last\digital\JakartaRestConfiguration.class
+Controller\ConexionDBController.class
