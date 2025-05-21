@@ -1,0 +1,195 @@
+:root {
+    --primary-color: #0f4c75;      /* Azul petróleo */
+    --primary-dark: #073b4c;       /* Azul muy oscuro */
+    --secondary-color: #f3f4f6;
+    --accent-color: #3282b8;       /* Azul más suave */
+    --text-light: #f8fafc;
+    --text-dark: #1e293b;
+    --sidebar-width: 250px;
+    --header-height: 60px;
+}
+
+
+
+/* Estilos generales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8fafc;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Header superior */
+.navbar-custom {
+    background-color: var(--primary-color);
+    height: var(--header-height);
+    padding: 0 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1030;
+}
+
+.navbar-custom .navbar-brand {
+    color: var(--text-light);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Sidebar */
+#sidebar {
+    background: linear-gradient(to bottom, var(--primary-color), var(--primary-dark));
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--header-height));
+    position: fixed;
+    left: 0;
+    top: var(--header-height);
+    overflow-y: auto;
+    transition: all 0.3s;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1020;
+}
+
+#sidebar h4 {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Estilos para el acordeón del sidebar */
+#sidebar .accordion-item {
+    background: transparent;
+    border: none;
+}
+
+#sidebar .accordion-button {
+    background: transparent;
+    color: var(--text-light);
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    border: none;
+    box-shadow: none;
+}
+
+#sidebar .accordion-button:not(.collapsed) {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    box-shadow: none;
+}
+
+#sidebar .accordion-button:focus {
+    box-shadow: none;
+    border-color: transparent;
+}
+
+#sidebar .accordion-button::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+#sidebar .accordion-body {
+    padding: 0.5rem 1rem 0.5rem 2rem;
+}
+
+#sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.5rem 0;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    display: block;
+}
+
+#sidebar .nav-link:hover {
+    color: white;
+    transform: translateX(5px);
+}
+
+#sidebar .nav-link i {
+    margin-right: 8px;
+    font-size: 0.9rem;
+}
+
+/* Contenido principal */
+#mainContent {
+    margin-left: var(--sidebar-width);
+    padding: 2rem;
+    min-height: calc(100vh - var(--header-height));
+    background-color: var(--secondary-color);
+    transition: all 0.3s;
+}
+
+/* Tablero de datos y tarjetas */
+.dashboard-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card .card-title {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+/* Elementos comunes */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+/* Tablas */
+.table-custom {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.table-custom thead {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    #sidebar {
+        width: 0;
+        transform: translateX(-100%);
+    }
+
+    #sidebar.active {
+        width: var(--sidebar-width);
+        transform: translateX(0);
+    }
+
+    #mainContent {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Mostrar botón de toggle en pantallas pequeñas */
+    #toggleSidebar {
+        display: block;
+    }
+}
+
+@media (min-width: 993px) {
+    /* Ocultar botón de toggle en pantallas grandes */
+    #toggleSidebar {
+        display: none;
+    }
+}
+
