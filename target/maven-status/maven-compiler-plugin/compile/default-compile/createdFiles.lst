@@ -5,13 +5,16 @@ model\Venta.class
 mapper\AsignacionMapper.class
 dao\ClienteDao.class
 dto\AtencionDTO.class
+service\UsuarioService.class
 com\last\digital\resources\JakartaEE10Resource.class
 serviceImpl\AsignacionServiceImpl.class
 PruebaApp.class
 model\Cliente.class
 dto\ClienteDTO.class
+LogoutServlet.class
 dto\UsuarioDTO.class
 model\Solicitud.class
+LoginServlet.class
 model\Trabajador.class
 dto\ColaboradorDTO.class
 service\TipoSolicitudService.class
@@ -28,6 +31,7 @@ Controller\ClienteController.class
 model\Atencion.class
 serviceImpl\AtencionServiceImpl.class
 dao\VentaDao.class
+serviceImpl\UsuarioServiceImpl.class
 dao\ColaboradorDao.class
 mapper\VentaMapper.class
 serviceImpl\AplicacionServiceImpl.class
@@ -55,6 +59,7 @@ serviceImpl\TrabajadorServiceImpl.class
 dao\TrabajadorDao.class
 dao\UsuarioDao.class
 dto\TrabajadorDTO.class
+mapper\UsuarioMapper.class
 model\Asignacion.class
 mapper\AplicacionMapper.class
 dao\AtencionDao.class

@@ -8,6 +8,7 @@ C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\map
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\service\TrabajadorService.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\dao\ColaboradorDao.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\mapper\ColaboradorMapper.java
+C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\service\UsuarioService.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\mapper\AplicacionMapper.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\mapper\TrabajadorMapper.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\dto\TrabajadorDTO.java
@@ -29,6 +30,7 @@ C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\ser
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\dto\ColaboradorDTO.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\serviceImpl\SolicitudServiceImpl.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\dao\VentaDao.java
+C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\mapper\UsuarioMapper.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\model\Solicitud.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\mapper\TipoSolicitudMapper.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\service\SolicitudService.java
@@ -39,7 +41,9 @@ C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\mod
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\dao\ClienteDao.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\Controller\MenuPrincipalController.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\serviceImpl\AtencionServiceImpl.java
+C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\Controller\LogoutServlet.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\serviceImpl\TrabajadorServiceImpl.java
+C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\serviceImpl\UsuarioServiceImpl.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\service\ColaboradorService.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\dao\AsignacionDao.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\mapper\ClienteMapper.java
@@ -48,6 +52,7 @@ C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\mod
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\serviceImpl\AsignacionServiceImpl.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\serviceImpl\ColaboradorServiceImpl.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\serviceImpl\TipoSolicitudServiceImpl.java
+C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\Controller\LoginServlet.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\dto\TipoSolicitudDTO.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\Controller\ClienteController.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\model\Usuario.java

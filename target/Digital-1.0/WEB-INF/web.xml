@@ -9,6 +9,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>Digital</welcome-file>
+        <welcome-file>pages/login.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

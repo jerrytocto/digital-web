@@ -18,7 +18,7 @@ import serviceImpl.AplicacionServiceImpl;
 import serviceImpl.ClienteServiceImpl;
 import serviceImpl.SolicitudServiceImpl;
 
-@WebServlet("/Digital")
+@WebServlet("/dashboard")
 public class MenuPrincipalController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

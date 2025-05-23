@@ -121,5 +121,37 @@ public class UsuarioDao {
         }
         return lista;
     }
+    
+    // BUSCAR USUARIO POR USERNAME Y CONTRASEÑA 
+    public Usuario buscarUsuarioPorUsernamePassword(String username, String contrasenia){
+        String sql = "SELECT * FROM usuario WHERE username=? AND contrasenia=?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            stmt.setString(2, contrasenia);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(rs.getInt("id_usuario"));
+                usuario.setTipoDocumento(rs.getString("tipo_documento"));
+                usuario.setNumeroDocumento(rs.getString("num_documento"));
+                usuario.setNombres(rs.getString("nombre"));
+                usuario.setApellidoPaterno(rs.getString("apellido_paterno"));
+                usuario.setApellidoMaterno(rs.getString("apellido_materno"));
+                usuario.setTelefono(rs.getString("telefono"));
+                usuario.setCorreo(rs.getString("correo"));
+                usuario.setFechaRegistro(rs.getDate("fecha_registro"));
+                usuario.setEstado(rs.getBoolean("estado"));
+                usuario.setUsername(rs.getString("username"));
+                usuario.setPassword(rs.getString("contrasenia"));
+                
+                return usuario;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    
 
 }

@@ -14,6 +14,8 @@ public class UsuarioDTO {
     private String correo;
     private Date fechaRegistro;
     private boolean estado;
+    private String usename ; 
+    private String password; 
 
     public UsuarioDTO() {
     }
@@ -46,6 +48,44 @@ public class UsuarioDTO {
         this.fechaRegistro = fechaRegistro;
         this.estado = estado;
     }
+
+    public UsuarioDTO(String usename, String password) {
+        this.usename = usename;
+        this.password = password;
+    }
+
+    public UsuarioDTO(int idUsuario, String tipoDocumento, String numeroDocumento, String nombres, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, Date fechaRegistro, boolean estado, String usename, String password) {
+        this.idUsuario = idUsuario;
+        this.tipoDocumento = tipoDocumento;
+        this.numeroDocumento = numeroDocumento;
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.telefono = telefono;
+        this.correo = correo;
+        this.fechaRegistro = fechaRegistro;
+        this.estado = estado;
+        this.usename = usename;
+        this.password = password;
+    }
+
+    public String getUsename() {
+        return usename;
+    }
+
+    public void setUsename(String usename) {
+        this.usename = usename;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    
 
     public int getIdUsuario() {
         return idUsuario;
