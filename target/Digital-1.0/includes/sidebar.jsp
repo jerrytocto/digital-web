@@ -5,7 +5,7 @@
         <!-- Dashboard -->
         <div class="accordion-item">
             <div class="nav-link">
-                <a href="${pageContext.request.contextPath}/index.jsp" class="nav-link">
+                <a href="#" class="nav-link" onclick="loadPage('dashboard.jsp')">
                     <i class="bi bi-house"></i> Dashboard
                 </a>
             </div>
@@ -23,7 +23,7 @@
                     <a href="${pageContext.request.contextPath}/pages/clientes.jsp" class="nav-link">
                         <i class="bi bi-list-ul"></i> Listar todos
                     </a>
-                    <a href="${pageContext.request.contextPath}/pages/clientes-nuevo.jsp" class="nav-link">
+                    <a href="#" onclick="loadPage('cliente/nuevoCliente.jsp')" class="nav-link">
                         <i class="bi bi-person-plus"></i> Nuevo cliente
                     </a>
                 </div>

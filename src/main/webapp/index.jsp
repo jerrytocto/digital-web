@@ -14,11 +14,8 @@
     <%-- Incluir el sidebar  --%>
     <%@ include file="includes/sidebar.jsp" %>
 
-    <div id="mainContent">
-
-        <%-- Incluir el sidebar  --%>
-        <%@ include file="pages/dashboard.jsp" %>
-
+    <div id="mainContent" class="flex-grow-1 p-3">
+        <%@ include file="pages/dashboard.jsp" %> <%-- Contenido por defecto --%>
     </div>
 </div>
 
