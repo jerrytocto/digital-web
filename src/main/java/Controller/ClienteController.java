@@ -81,7 +81,7 @@ public class ClienteController extends HttpServlet {
         req.setAttribute("clientes", clientes);
         try {
             //Redirige a la ventana de listado de clientes
-            req.getRequestDispatcher("/views/cliente/listar.jsp").forward(req, resp);
+            req.getRequestDispatcher("/pages/cliente/listarTodos.jsp").forward(req, resp);
         } catch (ServletException e) {
             e.printStackTrace();
         }

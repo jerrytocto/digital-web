@@ -5,12 +5,12 @@
         <!-- Dashboard -->
         <div class="accordion-item">
             <div class="nav-link">
-                <a href="#" class="nav-link" onclick="loadPage('dashboard.jsp')">
+                <a href="${pageContext.request.contextPath}/dashboard" class="nav-link" >
                     <i class="bi bi-house"></i> Dashboard
                 </a>
             </div>
         </div>
-        
+
         <!-- Clientes -->
         <div class="accordion-item">
             <h2 class="accordion-header">
@@ -20,16 +20,16 @@
             </h2>
             <div id="clientesCollapse" class="accordion-collapse collapse">
                 <div class="accordion-body">
-                    <a href="${pageContext.request.contextPath}/pages/clientes.jsp" class="nav-link">
+                    <a href="${pageContext.request.contextPath}/cliente?accion=listar" class="nav-link">
                         <i class="bi bi-list-ul"></i> Listar todos
                     </a>
-                    <a href="#" onclick="loadPage('cliente/nuevoCliente.jsp')" class="nav-link">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNuevoCliente">
                         <i class="bi bi-person-plus"></i> Nuevo cliente
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
-        
+
         <!-- Aplicaciones -->
         <div class="accordion-item">
             <h2 class="accordion-header">
@@ -48,7 +48,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Solicitudes -->
         <div class="accordion-item">
             <h2 class="accordion-header">
@@ -67,7 +67,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Reportes -->
         <div class="accordion-item">
             <h2 class="accordion-header">
@@ -86,7 +86,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Configuración -->
         <div class="accordion-item">
             <h2 class="accordion-header">

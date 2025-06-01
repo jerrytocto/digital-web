@@ -33,24 +33,6 @@
             }
         });
     });
-
-    function loadPage(page) {
-        const container = document.getElementById('mainContent');
-
-        fetch(`pages/${page}`)
-                .then(response => {
-                    if (!response.ok)
-                        throw new Error("Error al cargar la página.");
-                    return response.text();
-                })
-                .then(html => {
-                    container.innerHTML = html;
-                })
-                .catch(err => {
-                    container.innerHTML = `<div class="alert alert-danger">No se pudo cargar el contenido.</div>`;
-                    console.error(err);
-                });
-    }
 </script>
 </body>
 </html>

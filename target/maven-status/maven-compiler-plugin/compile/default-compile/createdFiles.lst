@@ -50,6 +50,7 @@ service\ColaboradorService.class
 Controller\ConexionDBController.class
 service\AplicacionService.class
 model\Aplicacion.class
+Controller\AplicacionController.class
 mapper\ColaboradorMapper.class
 model\TipoSolicitud.class
 Controller\MenuPrincipalController.class
