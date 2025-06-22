@@ -43,6 +43,13 @@ public class SolicitudDTO {
         this.trabajador = trabajador;
     }
     
+    public SolicitudDTO(String motivo, Date fechaRegistro, AplicacionDTO aplicacion, TipoSolicitudDTO tipoSolicitud, TrabajadorDTO trabajador) {
+        this.motivo = motivo;
+        this.fechaRegistro = fechaRegistro;
+        this.aplicacion = aplicacion;
+        this.tipoSolicitud = tipoSolicitud;
+        this.trabajador = trabajador;
+    }
     
 
     public int getIdSolicitud() {

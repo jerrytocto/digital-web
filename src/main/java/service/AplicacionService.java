@@ -10,6 +10,8 @@ public interface AplicacionService {
     List<AplicacionDTO> listar();
     
     List<ClienteDTO> listarClientesPorAplicacion(int aplicacion);
+    
+    List<AplicacionDTO> listarAplicacionesPorCliente(int idCliente);
 
     AplicacionDTO obtenerPorId(int id);
 

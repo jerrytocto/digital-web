@@ -83,4 +83,15 @@ public class AplicacionServiceImpl implements AplicacionService {
         return listClientesDTO ; 
     }
 
+    @Override
+    public List<AplicacionDTO> listarAplicacionesPorCliente(int idCliente) {
+        List<Aplicacion> listaAplicaciones = aplicacionDao.listAplicacionesPorCliente(idCliente);
+        
+        List<AplicacionDTO> listaDTO = new ArrayList<>();
+        for (Aplicacion app : listaAplicaciones) {
+            listaDTO.add(AplicacionMapper.toDTO(app));
+        }
+        return listaDTO;
+    }
+
 }

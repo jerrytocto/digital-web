@@ -1,5 +1,6 @@
 package Controller;
 
+import com.google.gson.Gson;
 import dto.AplicacionDTO;
 import dto.ClienteDTO;
 import dto.TrabajadorDTO;
@@ -23,7 +24,7 @@ public class ClienteController extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        this.clienteService = new ClienteServiceImpl(); // Suponiendo que ya la tienes implementada
+        this.clienteService = new ClienteServiceImpl(); 
     }
 
     @Override
@@ -34,6 +35,9 @@ public class ClienteController extends HttpServlet {
             switch (accion != null ? accion : "") {
                 case "listar":
                     listarClientes(req, resp);
+                    break;
+                case "listarJson":
+                    listarClientesJson(req, resp);
                     break;
                 case "obtener":
                     obtenerCliente(req, resp);
@@ -86,7 +90,18 @@ public class ClienteController extends HttpServlet {
             e.printStackTrace();
         }
     }
+    
+    private void listarClientesJson(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        List<ClienteDTO> clientes = clienteService.listar();
+        // Aquí puedes retornar JSON, JSP, etc.
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
 
+        Gson gson = new Gson();
+        String json = gson.toJson(clientes);
+        resp.getWriter().write(json);
+    }
+    
     private void obtenerCliente(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int id = parseInt(req.getParameter("id"), -1);
         if (id == -1) {

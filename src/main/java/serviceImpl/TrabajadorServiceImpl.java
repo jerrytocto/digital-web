@@ -74,4 +74,15 @@ public class TrabajadorServiceImpl implements TrabajadorService {
         }
        return true ;
     }
+
+    @Override
+    public TrabajadorDTO obtenerEmpresaTrabajador(int idUsuario) {
+       Trabajador trabajador = trabajadorDao.buscarPorIdUsuario(idUsuario);
+        TrabajadorDTO trabajadorDto = new TrabajadorDTO();
+        if (trabajador != null) {
+            trabajadorDto = TrabajadorMapper.toDTO(trabajador);
+        }
+
+        return trabajadorDto;
+    }
 }

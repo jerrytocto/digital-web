@@ -1,6 +1,7 @@
 package dao;
 
 import com.last.digital.resources.config.ConnectionDB;
+import jakarta.persistence.IdClass;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -77,6 +78,30 @@ public class AplicacionDao {
             e.printStackTrace();
             return false;
         }
+    }
+
+    //Listar aplicaciones por cliente
+    public List<Aplicacion> listAplicacionesPorCliente(int idCliente) {
+        List<Aplicacion> lista = new ArrayList<>();
+        String sql = "SELECT * FROM aplicacion a "
+                + "INNER JOIN venta v ON a.id_aplicacion = v.id_aplicacion "
+                + "WHERE v.id_cliente = ?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idCliente);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) { // ← esto permite recorrer todas las filas
+                    Aplicacion aplicacion = new Aplicacion();
+                    aplicacion.setIdAplicacion(rs.getInt("id_aplicacion"));
+                    aplicacion.setNombre(rs.getString("nombre"));
+                    lista.add(aplicacion);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Aquí puedes loguear mejor si usas loggers
+        }
+
+        return lista;
     }
 
 }

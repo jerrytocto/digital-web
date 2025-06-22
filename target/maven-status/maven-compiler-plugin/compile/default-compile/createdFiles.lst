@@ -12,12 +12,14 @@ PruebaApp.class
 model\Cliente.class
 dto\ClienteDTO.class
 LogoutServlet.class
+Controller\SolicitudController.class
 dto\UsuarioDTO.class
 model\Solicitud.class
 LoginServlet.class
 model\Trabajador.class
 dto\ColaboradorDTO.class
 service\TipoSolicitudService.class
+Controller\ColaboradorController.class
 serviceImpl\ClienteServiceImpl.class
 serviceImpl\ColaboradorServiceImpl.class
 service\AsignacionService.class
@@ -30,6 +32,7 @@ serviceImpl\TipoSolicitudServiceImpl.class
 Controller\ClienteController.class
 model\Atencion.class
 serviceImpl\AtencionServiceImpl.class
+Controller\UsuarioController.class
 dao\VentaDao.class
 serviceImpl\UsuarioServiceImpl.class
 dao\ColaboradorDao.class
@@ -53,6 +56,7 @@ model\Aplicacion.class
 Controller\AplicacionController.class
 mapper\ColaboradorMapper.class
 model\TipoSolicitud.class
+Controller\TipoSolicitudController.class
 Controller\MenuPrincipalController.class
 dto\TipoSolicitudDTO.class
 dao\AsignacionDao.class

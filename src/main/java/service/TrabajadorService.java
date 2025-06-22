@@ -13,6 +13,6 @@ public interface TrabajadorService {
 
     boolean actualizarTrabajador(TrabajadorDTO trabajadorDto);
     
-    
+    TrabajadorDTO obtenerEmpresaTrabajador(int idUsuario) ;
     
 }

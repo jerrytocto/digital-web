@@ -47,7 +47,7 @@ public class TipoSolicitudDao {
         try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 TipoSolicitud tipoSolicitud = new TipoSolicitud();
-                tipoSolicitud.setIdTipoSolicitud(rs.getInt("id_cliente"));
+                tipoSolicitud.setIdTipoSolicitud(rs.getInt("id_tipo_solicitud"));
                 tipoSolicitud.setNombre(rs.getString("nombre"));
                 tipoSolicitud.setDescripcion(rs.getString("descripcion"));
                 tipoSolicitud.setEstado(rs.getBoolean("estado"));

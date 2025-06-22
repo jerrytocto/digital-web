@@ -1,5 +1,6 @@
 package Controller;
 
+import com.google.gson.Gson;
 import dto.AplicacionDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,12 +8,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import static java.lang.Integer.parseInt;
 import java.util.Date;
 import java.util.List;
 import service.AplicacionService;
 import serviceImpl.AplicacionServiceImpl;
 
-@WebServlet("/apliacion")
+@WebServlet("/aplicacion")
 public class AplicacionController extends HttpServlet {
 
     private AplicacionService aplicacionService;
@@ -30,6 +32,9 @@ public class AplicacionController extends HttpServlet {
             switch (accion != null ? accion : "") {
                 case "listar":
                     listarAplicaciones(req, resp);
+                    break;
+                case "listarPorCliente":
+                    listarAplicacionesPorCliente(req, resp);
                     break;
                 /*case "obtener":
                     obtenerCliente(req, resp);
@@ -84,6 +89,29 @@ public class AplicacionController extends HttpServlet {
         } catch (ServletException e) {
             e.printStackTrace();
         }
+    }
+
+    //Listar aplicaciones por cliente
+    private void listarAplicacionesPorCliente(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String idClienteParam = req.getParameter("idCliente");
+        int idCliente;
+        try {
+            idCliente = Integer.parseInt(idClienteParam);
+        } catch (NumberFormatException | NullPointerException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID inválido");
+            return;
+        }
+
+        List<AplicacionDTO> aplicacionesPorCliente = aplicacionService.listarAplicacionesPorCliente(idCliente);
+
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+
+        Gson gson = new Gson();
+        String json = gson.toJson(aplicacionesPorCliente);
+
+        System.out.println("Lista de aplicaciones por cliente: " + json);
+        resp.getWriter().write(json);
     }
 
     private void registrarAplicacion(HttpServletRequest req, HttpServletResponse resp) throws IOException {

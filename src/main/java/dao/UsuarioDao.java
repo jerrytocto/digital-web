@@ -152,6 +152,32 @@ public class UsuarioDao {
         return null;
     }
     
-    
+        // LISTAR TODOS LOS USUARIOS QUE SON COLABORADORES
+    public List<Usuario> listarTodosColaboradores() {
+        List<Usuario> lista = new ArrayList<>();
+        String sql = "SELECT * FROM usuario u"
+                + "   INNER JOIN colaborador c "
+                + "   ON u.id_usuario = c.id_usuario"
+                + "   WHERE u.estado ='true'";
+        try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(rs.getInt("id_usuario"));
+                usuario.setTipoDocumento(rs.getString("tipo_documento"));
+                usuario.setNumeroDocumento(rs.getString("num_documento"));
+                usuario.setNombres(rs.getString("nombre"));
+                usuario.setApellidoPaterno(rs.getString("apellido_paterno"));
+                usuario.setApellidoMaterno(rs.getString("apellido_materno"));
+                usuario.setTelefono(rs.getString("telefono"));
+                usuario.setCorreo(rs.getString("correo"));
+                usuario.setFechaRegistro(rs.getDate("fecha_registro"));
+                usuario.setEstado(rs.getBoolean("estado"));
+                lista.add(usuario);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
 
 }

@@ -17,6 +17,7 @@
 
     <div id="mainContent" class="flex-grow-1 p-3">
         <h2>Lista de clientes</h2> <%-- Contenido por defecto --%>
+        
         <div class="row mb-4">
             <div class="col-12">
                 <div class="dashboard-card">
@@ -73,12 +74,13 @@
                         </table>
                     </div>
                     <!--Fin tabla de solicitudes-->
+                    
                 </div>
             </div>
         </div>
 
-        <!-- Modal para nuevo cliente -->
-        <!-- Modal para nuevo cliente -->
+        <!-- Inicio modal para nuevo cliente -->
+        
         <div class="modal fade" id="modalNuevoCliente" tabindex="-1" aria-labelledby="modalNuevoClienteLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content rounded-3 shadow">
@@ -163,7 +165,6 @@
                 </div>
             </div>
         </div>
-
 
         <!--Fin modal para nuevo cliente-->
     </div>

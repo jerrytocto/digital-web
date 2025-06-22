@@ -17,8 +17,12 @@
     <div id="mainContent" class="flex-grow-1 p-3">
         <%@ include file="pages/dashboard.jsp" %> <%-- Contenido por defecto --%>
     </div>
-</div>
 
+
+</div>
+<%-- Incluir el modal para agregar una solicitud  --%>
+    <%@ include file="pages/solicitud/modalNuevaSolicitud.jsp" %>
+<%-- Cierre del modal para agregar una solicitud  --%>
 
 <%-- Incluir el pié de página --%>
 <%@ include file="includes/footer.jsp" %>
