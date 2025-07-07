@@ -207,5 +207,48 @@ public class AtencionDao {
         }
         return lista;
     }
+    
+        public List<Atencion> listarAtencionesPorSolicitudYColaborador(int idSolicitud, int idColaborador) {
+
+        List<Atencion> lista = new ArrayList<>();
+        String sql = "SELECT * FROM atencion WHERE id_solicitud = ? AND id_colaborador=? ";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idSolicitud);
+            stmt.setInt(2, idColaborador);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Atencion atencion = new Atencion();
+                atencion.setIdAtencion(rs.getInt("id_atencion"));
+                atencion.setFechaHoraInicio(rs.getTimestamp("hora_inicio"));
+                atencion.setFechaHoraFin(rs.getTimestamp("hora_fin"));
+                atencion.setDescripcion(rs.getString("descripcion"));
+
+                // Cargar asignación mínima
+                Asignacion asignacion = new Asignacion();
+
+                Colaborador colaborador = new Colaborador();
+                ColaboradorDao colaboradorDao = new ColaboradorDao();
+                colaborador = colaboradorDao.buscarPorIdUsuario(rs.getInt("id_colaborador"));
+
+                Solicitud solicitud = new Solicitud();
+                SolicitudDao solicitudDao = new SolicitudDao();
+                solicitud = solicitudDao.buscarPorId(rs.getInt("id_solicitud"));
+
+                asignacion.setColaborador(colaborador);
+                asignacion.setSolicitud(solicitud);
+
+                atencion.setAsignacion(asignacion);
+
+                lista.add(atencion);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+    
 
 }

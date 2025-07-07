@@ -149,6 +149,22 @@ public class AsignacionDao {
         return lista;
     }
 
+    public List<Asignacion> listarAsignacionesPorSolicitud(int idSolicitud) {
+        List<Asignacion> lista = new ArrayList<>();
+        String sql = "SELECT * FROM asignacion WHERE id_solicitud = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idSolicitud);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(cargarAsignacionesdeResultSet(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
     private Asignacion cargarAsignacionesdeResultSet(ResultSet rs) throws SQLException {
         Asignacion asignacion = new Asignacion();
         asignacion.setIsCoordiandor(rs.getBoolean("coordinador"));
@@ -165,6 +181,18 @@ public class AsignacionDao {
         asignacion.setSolicitud(sol);
 
         return asignacion;
+    }
+
+    public boolean eliminarAsignacion(int idSolicitud, int idColaborador) {
+        String sql = "DELETE FROM asignacion WHERE id_solicitud = ? AND id_colaborador = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idSolicitud);
+            stmt.setInt(2, idColaborador);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

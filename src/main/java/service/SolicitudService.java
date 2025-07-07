@@ -16,6 +16,8 @@ public interface SolicitudService {
     List<SolicitudDTO> listSolicitudesPorAplicacion(int idAplicacion);
     
     List<SolicitudDTO> listaSolicitudesPorCliente(int idAplicacion);
+    
+    List<SolicitudDTO> listarSolicitudesAsignadasPorColaborador (int idColaborador);
 
     SolicitudDTO buscarSolicitudPorId(int idSolicitud);
 

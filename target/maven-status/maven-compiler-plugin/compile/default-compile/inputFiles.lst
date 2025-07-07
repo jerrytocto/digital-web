@@ -19,6 +19,7 @@ C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\mod
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\mapper\AsignacionMapper.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\serviceImpl\AplicacionServiceImpl.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\serviceImpl\ClienteServiceImpl.java
+C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\Controller\AsignarController.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\dto\AplicacionDTO.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\service\AsignacionService.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\mapper\SolicitudMapper.java
@@ -52,6 +53,7 @@ C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\ser
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\service\ColaboradorService.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\dao\AsignacionDao.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\mapper\ClienteMapper.java
+C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\Controller\AtencionController.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\model\TipoSolicitud.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\model\Cliente.java
 C:\Users\jerry.chuquiguanca\Documents\NetBeansProjects\Digital\src\main\java\serviceImpl\AsignacionServiceImpl.java

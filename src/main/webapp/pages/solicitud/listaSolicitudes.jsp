@@ -82,73 +82,92 @@
 
 
                             <!-- Recorrer la lista de clientes -->
-                            <c:forEach var="solicitud" items="${solicitudes}">
-                                <tr>
-                                    <td>${solicitud.idSolicitud}</td>
-                                    <td>${solicitud.getTrabajador().getCliente().getRazonSocial()}</td>
-                                    <td>${solicitud.getAplicacion().getNombre()}</td>
-                                    <td>${solicitud.getMotivo()}</td>
-                                    <td>${solicitud.getFechaRegistro()}</td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${solicitud.estado == 'Sin asignar'}">
-                                                <span class="badge bg-secondary">Sin asignar</span>
-                                            </c:when>
-                                            <c:when test="${solicitud.estado == 'Pendiente'}">
-                                                <span class="badge bg-warning text-dark">Pendiente</span>
-                                            </c:when>
-                                            <c:when test="${solicitud.estado == 'En proceso'}">
-                                                <span class="badge bg-primary">En proceso</span>
-                                            </c:when>
-                                            <c:when test="${solicitud.estado == 'Cerrado'}">
-                                                <span class="badge bg-success">Cerrado</span>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <span class="badge bg-light text-dark">${solicitud.estado}</span>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
+                            <tbody id="tbodySolicitudes">
+                                <c:forEach var="solicitud" items="${solicitudes}">
+                                    <tr>
+                                        <td>${solicitud.idSolicitud}</td>
+                                        <td>${solicitud.getTrabajador().getCliente().getRazonSocial()}</td>
+                                        <td>${solicitud.getAplicacion().getNombre()}</td>
+                                        <td>${solicitud.getMotivo()}</td>
+                                        <td>${solicitud.getFechaRegistro()}</td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${solicitud.estado == 'Sin asignar'}">
+                                                    <span class="badge bg-secondary">Sin asignar</span>
+                                                </c:when>
+                                                <c:when test="${solicitud.estado == 'Pendiente'}">
+                                                    <span class="badge bg-warning text-dark">Pendiente</span>
+                                                </c:when>
+                                                <c:when test="${solicitud.estado == 'En proceso'}">
+                                                    <span class="badge bg-primary">En proceso</span>
+                                                </c:when>
+                                                <c:when test="${solicitud.estado == 'Cerrado'}">
+                                                    <span class="badge bg-success">Cerrado</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="badge bg-light text-dark">${solicitud.estado}</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
 
-                                    <td class="text-center">
-                                        <!--Botón para ver los detalles de la solicitud, este pasa como parámetros los valores de la solicitud-->
-                                        <c:choose>
-                                            <c:when test="${not empty solicitud.trabajador}">
-                                                <button class="btn btn-sm btn-outline-info me-1 btn-ver-detalles-solicitudes"
+                                        <td class="text-center">
+                                            <!--Botón para ver los detalles de la solicitud, este pasa como parámetros los valores de la solicitud-->
+                                            <c:choose>
+                                                <c:when test="${not empty solicitud.trabajador}">
+                                                    <button class="btn btn-sm btn-outline-info me-1 btn-ver-detalles-solicitudes"
+                                                            data-id="${solicitud.idSolicitud}"
+                                                            data-motivo="${solicitud.motivo}"
+                                                            data-fecha="${solicitud.fechaRegistro}"
+                                                            data-estado="${solicitud.estado}"
+                                                            data-aplicacion="${solicitud.aplicacion.nombre}"
+                                                            data-tipo="${solicitud.tipoSolicitud.nombre}" 
+                                                            data-trabajador="${solicitud.trabajador.nombres} ${solicitud.trabajador.apellidoPaterno}">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <button class="btn btn-sm btn-outline-info me-1 btn-ver-detalles-solicitudes"
+                                                            data-id="${solicitud.idSolicitud}"
+                                                            data-motivo="${solicitud.motivo}"
+                                                            data-fecha="${solicitud.fechaRegistro}"
+                                                            data-estado="${solicitud.estado}"
+                                                            data-aplicacion="${solicitud.aplicacion.nombre}"
+                                                            data-tipo="${solicitud.tipoSolicitud.nombre}" 
+                                                            data-trabajador="No asignado">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <!--Fin del botón para ver los detalles de dicha solicitud-->
+
+                                            <!--Inicio del botón para asignar solicitud-->
+                                            <c:if test="${sessionScope.tipoUsuario eq 'COLABORADOR' and sessionScope.rol=='admin'}">
+                                                <button class="btn btn-sm btn-outline-success me-1 btn-asignar-solicitud" 
                                                         data-id="${solicitud.idSolicitud}"
-                                                        data-motivo="${solicitud.motivo}"
-                                                        data-fecha="${solicitud.fechaRegistro}"
                                                         data-estado="${solicitud.estado}"
-                                                        data-aplicacion="${solicitud.aplicacion.nombre}"
-                                                        data-tipo="${solicitud.tipoSolicitud.nombre}" 
-                                                        data-trabajador="${solicitud.trabajador.nombres} ${solicitud.trabajador.apellidoPaterno}">
-                                                    <i class="bi bi-eye"></i>
+                                                        >
+                                                    <i class="bi bi-people"></i>
                                                 </button>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <button class="btn btn-sm btn-outline-info me-1 btn-ver-detalles-solicitudes"
+                                            </c:if>
+                                            <!--Fin del botón para asignar una solicitud-->
+
+                                            <!--Inicio del botón para editar solicitud-->
+                                            <c:if test="${sessionScope.tipoUsuario eq 'COLABORADOR' and sessionScope.rol!='admin'}">
+                                                <button class="btn btn-sm btn-outline-success me-1 btn-atender-solicitud"
                                                         data-id="${solicitud.idSolicitud}"
+                                                        data-idcolaboradoreditor="${sessionScope.usuarioId}"
                                                         data-motivo="${solicitud.motivo}"
-                                                        data-fecha="${solicitud.fechaRegistro}"
                                                         data-estado="${solicitud.estado}"
-                                                        data-aplicacion="${solicitud.aplicacion.nombre}"
-                                                        data-tipo="${solicitud.tipoSolicitud.nombre}" 
-                                                        data-trabajador="No asignado">
-                                                    <i class="bi bi-eye"></i>
+                                                        data-aplicacion="${solicitud.aplicacion.nombre}">
+                                                    <i class="bi bi-pencil-square"></i>
                                                 </button>
-                                            </c:otherwise>
-                                        </c:choose>
+                                            </c:if>
+                                            <!--Fin del botón para editar una solicitud-->
 
-                                        <!--Fin del botón para ver los detalles de dicha solicitud-->
-
-                                        <!--Inicio del botón para editar una solicitud-->
-                                        <button class="btn btn-sm btn-outline-success me-1 btn-asignar-solicitud" data-id="${solicitud.idSolicitud}">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                        <!--Fin del botón para editar una solicitud-->
-
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
                         </table>
                     </div>
                     <!--Fin tabla de solicitudes-->
@@ -165,7 +184,13 @@
         <%@ include file="detalleSolicitud.jsp" %>
         <!--Fin modal para la lista de solicitudes-->
 
-
+        <!-- Inicio modal para la lista de solicitudes  -->
+        <%@ include file="asignarSolicitud.jsp" %>
+        <!--Fin modal para la lista de solicitudes-->
+        
+        <!-- Inicio modal para la lista de solicitudes  -->
+        <%@ include file="atencionSolicitud.jsp" %>
+        <!--Fin modal para la lista de solicitudes-->
 
 
     </div>

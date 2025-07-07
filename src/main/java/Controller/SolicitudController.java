@@ -92,15 +92,20 @@ public class SolicitudController extends HttpServlet {
 
         String tipoUsuario = (String) session.getAttribute("tipoUsuario");
         Integer idCliente = (Integer) session.getAttribute("empresaId");
+        String rol = (String) session.getAttribute("rol");
+        Integer usuarioId = (Integer) session.getAttribute("usuarioId");
         System.out.println("=========== Tipo de usuario en ListarSolicitudes " + tipoUsuario);
         System.out.println("=========== El id del cliente es  " + idCliente);
+        System.out.println("=========== El rol del usuario es  " + rol);
+        System.out.println("=========== El id del usuario es  " + usuarioId);
 
         List<SolicitudDTO> solicitudes = new ArrayList<>();
 
-        if (tipoUsuario == "COLABORADOR") {
+        if ("COLABORADOR".equals(tipoUsuario) && "admin".equals(rol)) {
             //Si es de tipo colaborador entonces, debe extraerme todas las solicitudes de todas los clientes
             solicitudes = solicitudService.listSolicitud();
-
+        } else if ("COLABORADOR".equals(tipoUsuario) && !"admin".equals(rol)) {
+            solicitudes = solicitudService.listarSolicitudesAsignadasPorColaborador(usuarioId);
         } else {
             // Debe traer la solicitud pero solo del cliente al que el usuario pertenece
             System.out.println("Usuario trabajador, ID cliente: " + idCliente);

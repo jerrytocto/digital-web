@@ -67,12 +67,22 @@ public class AtencionServiceImpl implements AtencionService {
 
         Atencion atencion = AtencionMapper.toEntity(dto);
         return atencionDao.insertarAtencion(atencion);
-        
+
     }
 
     @Override
     public boolean actualizarAtencion(AtencionDTO atencion) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<AtencionDTO> listarAtencionesPorSolicitudYColaborador(int idSolicitud, int idColaborador) {
+        List<Atencion> listAtencion = atencionDao.listarAtencionesPorSolicitudYColaborador(idSolicitud, idColaborador);
+        List<AtencionDTO> listAtencionDTO = new ArrayList<>();
+        for (Atencion atencion : listAtencion) {
+            listAtencionDTO.add(AtencionMapper.toDTO(atencion));
+        }
+        return listAtencionDTO;
     }
 
 }

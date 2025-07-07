@@ -11,6 +11,7 @@ serviceImpl\AsignacionServiceImpl.class
 PruebaApp.class
 model\Cliente.class
 dto\ClienteDTO.class
+Controller\AtencionController.class
 LogoutServlet.class
 Controller\SolicitudController.class
 dto\UsuarioDTO.class
@@ -49,6 +50,7 @@ mapper\ClienteMapper.class
 dao\AplicacionDao.class
 service\TrabajadorService.class
 com\last\digital\resources\config\ConnectionDB.class
+Controller\AsignarController.class
 service\ColaboradorService.class
 Controller\ConexionDBController.class
 service\AplicacionService.class

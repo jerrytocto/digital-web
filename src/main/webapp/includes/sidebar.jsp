@@ -47,7 +47,7 @@
             </h2>
             <div id="solicitudesCollapse" class="accordion-collapse collapse">
                 <div class="accordion-body">
-                    <a href="${pageContext.request.contextPath}/solicitudes?accion=listarTodas" class="nav-link">
+                    <a id="verTodasSolicitudes" href="${pageContext.request.contextPath}/solicitudes?accion=listarTodas" class="nav-link">
                         <i class="bi bi-card-list"></i> Ver todas
                     </a>
                     <c:if test="${sessionScope.tipoUsuario ne 'TRABAJADOR' and sessionScope.rol=='admin'}">

@@ -11,6 +11,8 @@ public interface AtencionService {
 
     List<AtencionDTO> listAtencionesPorColaborador(int idColaborador);
 
+    List<AtencionDTO> listarAtencionesPorSolicitudYColaborador(int idSolicitud, int idColaborador);
+
     AtencionDTO buscarAtencionPorId(int idAtencion);
 
     boolean insertarAtencion(AtencionDTO atencion);

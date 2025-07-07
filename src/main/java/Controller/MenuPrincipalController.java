@@ -18,7 +18,7 @@ import serviceImpl.AplicacionServiceImpl;
 import serviceImpl.ClienteServiceImpl;
 import serviceImpl.SolicitudServiceImpl;
 
-@WebServlet("/dashboard")
+@WebServlet(urlPatterns = "/dashboard", asyncSupported = true)
 public class MenuPrincipalController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
