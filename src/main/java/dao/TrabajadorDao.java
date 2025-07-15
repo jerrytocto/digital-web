@@ -122,6 +122,10 @@ public class TrabajadorDao {
 
                 Cliente cliente = new Cliente();
                 cliente.setIdCliente(rs.getInt("id_cliente"));
+
+                //Extraer a qué cliente pertenece dicho usuario
+                ClienteDao clienteDao = new ClienteDao();
+                cliente = clienteDao.buscarPorId(rs.getInt("id_cliente"));
                 trabajador.setCliente(cliente);
 
                 lista.add(trabajador);

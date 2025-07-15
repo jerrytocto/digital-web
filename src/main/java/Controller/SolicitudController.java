@@ -40,6 +40,9 @@ public class SolicitudController extends HttpServlet {
                 case "listarTodas":
                     listarSolicitudes(req, resp);
                     break;
+                case "solicitudesPorColaborador":
+                    listarSolicitudesPorColaborador(req, resp);
+                    break;
                 /*case "obtener":
                     obtenerCliente(req, resp);
                     break;
@@ -107,7 +110,7 @@ public class SolicitudController extends HttpServlet {
         } else if ("COLABORADOR".equals(tipoUsuario) && !"admin".equals(rol)) {
             solicitudes = solicitudService.listarSolicitudesAsignadasPorColaborador(usuarioId);
         } else {
-            // Debe traer la solicitud pero solo del cliente al que el usuario pertenece
+            // Debe traer las solicitudes pero solo del cliente al que el usuario pertenece
             System.out.println("Usuario trabajador, ID cliente: " + idCliente);
             solicitudes = solicitudService.listaSolicitudesPorCliente(idCliente);
         }
@@ -192,6 +195,74 @@ public class SolicitudController extends HttpServlet {
             e.printStackTrace();
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             resp.getWriter().write("{\"error\": \"No se pudo registrar la solicitud\"}");
+        }
+    }
+
+    private void listarSolicitudesPorColaborador(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        HttpSession session = req.getSession(false);
+        if (session == null) {
+            resp.sendRedirect("login.jsp");
+            return;
+        }
+
+        String idParam = req.getParameter("id");
+
+        int id;
+        try {
+            id = Integer.parseInt(idParam);
+        } catch (NumberFormatException | NullPointerException e) {
+            // Manejo del error si el parámetro no es un número válido
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID inválido");
+            return;
+        }
+
+        String tipoUsuario = (String) session.getAttribute("tipoUsuario");
+        Integer idCliente = (Integer) session.getAttribute("empresaId");
+        String rol = (String) session.getAttribute("rol");
+        Integer usuarioId = (Integer) session.getAttribute("usuarioId");
+        System.out.println("=========== Tipo de usuario en ListarSolicitudes " + tipoUsuario);
+        System.out.println("=========== El id del cliente es  " + idCliente);
+        System.out.println("=========== El rol del usuario es  " + rol);
+        System.out.println("=========== El id del usuario es  " + usuarioId);
+
+        List<SolicitudDTO> solicitudes = solicitudService.listarSolicitudesAsignadasPorColaborador(id);
+
+        // Aquí puedes retornar JSON, JSP, etc.
+        req.setAttribute("solicitudes", solicitudes);
+
+        //Devolver la lista de aplicaciones 
+        Set<Integer> idsSolicitudes = new HashSet<>();
+        List<AplicacionDTO> aplicacionesUnicas = new ArrayList<>();
+        for (SolicitudDTO solicitud : solicitudes) {
+            AplicacionDTO app = solicitud.getAplicacion();
+            if (app != null && !idsSolicitudes.contains(app.getIdAplicacion())) {
+                idsSolicitudes.add(app.getIdAplicacion());
+                aplicacionesUnicas.add(app);
+            }
+        }
+
+        //Devolver la lista de clientes
+        Set<Integer> idsClientes = new HashSet<>();
+        List<ClienteDTO> clientesUnicos = new ArrayList<>();
+        for (SolicitudDTO solicitud : solicitudes) {
+            ClienteDTO cliente = solicitud.getTrabajador().getCliente();
+            if (cliente != null && !idsClientes.contains(cliente.getIdCliente())) {
+                idsClientes.add(cliente.getIdCliente());
+                clientesUnicos.add(cliente);
+            }
+        }
+
+        //Devuelve lista de aplicaciones únicas 
+        req.setAttribute("aplicaciones", aplicacionesUnicas);
+
+        //Devuelve lista de clientes únicos
+        req.setAttribute("clientes", clientesUnicos);
+
+        try {
+            //Redirige a la ventana de listado de solicitudes
+            req.getRequestDispatcher("/pages/solicitud/listaSolicitudes.jsp").forward(req, resp);
+        } catch (ServletException e) {
+            e.printStackTrace();
         }
     }
 }

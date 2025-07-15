@@ -28,11 +28,6 @@
                         <a href="${pageContext.request.contextPath}/cliente?accion=listar" class="nav-link">
                             <i class="bi bi-list-ul"></i> Listar todos
                         </a>
-                        <c:if test="${sessionScope.rol=='admin'}">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNuevoCliente">
-                                <i class="bi bi-person-plus"></i> Nuevo cliente
-                            </button>
-                        </c:if>
                     </div>
                 </div>
             </div>
@@ -50,15 +45,7 @@
                     <a id="verTodasSolicitudes" href="${pageContext.request.contextPath}/solicitudes?accion=listarTodas" class="nav-link">
                         <i class="bi bi-card-list"></i> Ver todas
                     </a>
-                    <c:if test="${sessionScope.tipoUsuario ne 'TRABAJADOR' and sessionScope.rol=='admin'}">
-                        <a href="${pageContext.request.contextPath}/pages/solicitudes-pendientes.jsp" class="nav-link">
-                            <i class="bi bi-hourglass-split"></i> Pendientes
-                        </a>
-                    </c:if>
                     <c:if test="${sessionScope.tipoUsuario eq 'TRABAJADOR'}">
-                        <a href="${pageContext.request.contextPath}/pages/solicitudes-pendientes.jsp" class="nav-link">
-                            <i class="bi bi-hourglass-split"></i> Pendientes
-                        </a>
                         <button type="button" class="btn btn-primary" id="btnAbrirModalSolicitud">
                             <i class="bi bi-plus-circle"></i> Nueva solicitud
                         </button>
@@ -67,28 +54,50 @@
             </div>
         </div>
 
-        <!-- Aplicaciones, Reportes, Asignaciones, Configuración: solo para COLABORADOR ADMIN -->
-        <c:if test="${sessionScope.tipoUsuario eq 'COLABORADOR' and sessionScope.rol=='admin'}">
-            <!-- Aplicaciones -->
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#appsCollapse">
-                        <i class="bi bi-app me-2"></i> Aplicaciones
-                    </button>
-                </h2>
-                <div id="appsCollapse" class="accordion-collapse collapse">
+
+        <!-- Aplicaciones sin restricciones -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#appsCollapse">
+                    <i class="bi bi-app me-2"></i> Aplicaciones
+                </button>
+            </h2>
+            <div id="appsCollapse" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <a href="${pageContext.request.contextPath}/aplicacion?accion=listarTodas" class="nav-link">
+                        <i class="bi bi-list-ul"></i> Listar todos
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Usuarios -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#usuariosCollapse">
+                    <i class="bi bi-app me-2"></i> Usuarios
+                </button>
+            </h2>
+            <c:if test="${sessionScope.tipoUsuario eq 'COLABORADOR'}">
+                <div id="usuariosCollapse" class="accordion-collapse collapse">
                     <div class="accordion-body">
-                        <a href="${pageContext.request.contextPath}/pages/aplicaciones.jsp" class="nav-link">
-                            <i class="bi bi-grid"></i> Ver todas
-                        </a>
-                        <a href="${pageContext.request.contextPath}/pages/aplicaciones-nueva.jsp" class="nav-link">
-                            <i class="bi bi-plus-square"></i> Nueva aplicación
+                        <a href="${pageContext.request.contextPath}/colaborador?accion=listarTodos" class="nav-link">
+                            <i class="bi bi-list-ul"></i> Colaboradores
                         </a>
                     </div>
                 </div>
+            </c:if>
+            <div id="usuariosCollapse" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <a href="${pageContext.request.contextPath}/trabajador?accion=listarTodos" class="nav-link">
+                        <i class="bi bi-list-ul"></i> Trabajadores
+                    </a>
+                </div>
             </div>
+        </div>
 
-            <!-- Reportes -->
+        <!-- Reportes -->
+        <c:if test="${sessionScope.tipoUsuario eq 'COLABORADOR' and sessionScope.rol=='admin'}">
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#reportesCollapse">

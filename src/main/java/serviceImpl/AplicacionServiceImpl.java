@@ -1,6 +1,5 @@
 package serviceImpl;
 
-
 import dao.AplicacionDao;
 import dao.ClienteDao;
 import dao.VentaDao;
@@ -10,6 +9,8 @@ import dto.VentaDTO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import mapper.AplicacionMapper;
 import mapper.ClienteMapper;
 import mapper.VentaMapper;
@@ -22,8 +23,8 @@ public class AplicacionServiceImpl implements AplicacionService {
 
     //private AplicacionDao aplicacionDao = new AplicacionDao();
     private AplicacionDao aplicacionDao;
-    private VentaDao ventaDao ; 
-    private ClienteDao clienteDao ; 
+    private VentaDao ventaDao;
+    private ClienteDao clienteDao;
 
     public AplicacionServiceImpl() {
         try {
@@ -65,32 +66,53 @@ public class AplicacionServiceImpl implements AplicacionService {
 
     @Override
     public void eliminar(int id) {
-        
+
     }
 
     @Override
     public List<ClienteDTO> listarClientesPorAplicacion(int idAplicacion) {
-        List<Venta> listVentas = ventaDao.listarVentasPorAplicacion(idAplicacion) ; 
-        
+        List<Venta> listVentas = ventaDao.listarVentasPorAplicacion(idAplicacion);
+
         List<ClienteDTO> listClientesDTO = new ArrayList<>();
-        for(Venta venta: listVentas){
-            Cliente cliente = new Cliente() ; 
-            cliente = clienteDao.buscarPorId(venta.getCliente().getIdCliente()) ; 
-            if(cliente != null){
-                listClientesDTO.add(ClienteMapper.toDTO(cliente)) ;
+        for (Venta venta : listVentas) {
+            Cliente cliente = new Cliente();
+            cliente = clienteDao.buscarPorId(venta.getCliente().getIdCliente());
+            if (cliente != null) {
+                listClientesDTO.add(ClienteMapper.toDTO(cliente));
             }
         }
-        return listClientesDTO ; 
+        return listClientesDTO;
     }
 
     @Override
     public List<AplicacionDTO> listarAplicacionesPorCliente(int idCliente) {
         List<Aplicacion> listaAplicaciones = aplicacionDao.listAplicacionesPorCliente(idCliente);
-        
+
         List<AplicacionDTO> listaDTO = new ArrayList<>();
         for (Aplicacion app : listaAplicaciones) {
             listaDTO.add(AplicacionMapper.toDTO(app));
         }
+        return listaDTO;
+    }
+
+    @Override
+    public List<AplicacionDTO> listarAplicacionesNoCompradas(int idCliente) {
+        List<Aplicacion> listaAplicaciones = aplicacionDao.listarTodos(); // Todas las apps
+        List<Aplicacion> listaAplicacionesCompradas = aplicacionDao.listAplicacionesPorCliente(idCliente); // Ya compradas
+
+        // Crear un Set con los IDs de las apps compradas para filtrar rápido
+        Set<Integer> idsCompradas = listaAplicacionesCompradas.stream()
+                .map(Aplicacion::getIdAplicacion)
+                .collect(Collectors.toSet());
+
+        // Filtrar solo las que NO están compradas
+        List<AplicacionDTO> listaDTO = new ArrayList<>();
+        for (Aplicacion app : listaAplicaciones) {
+            if (!idsCompradas.contains(app.getIdAplicacion())) {
+                listaDTO.add(AplicacionMapper.toDTO(app));
+            }
+        }
+
         return listaDTO;
     }
 

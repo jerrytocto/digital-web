@@ -31,8 +31,10 @@ dto\VentaDTO.class
 mapper\TipoSolicitudMapper.class
 serviceImpl\TipoSolicitudServiceImpl.class
 Controller\ClienteController.class
+Controller\TrabajadorController.class
 model\Atencion.class
 serviceImpl\AtencionServiceImpl.class
+serviceImpl\VentaServiceImpl.class
 Controller\UsuarioController.class
 dao\VentaDao.class
 serviceImpl\UsuarioServiceImpl.class
@@ -51,10 +53,12 @@ dao\AplicacionDao.class
 service\TrabajadorService.class
 com\last\digital\resources\config\ConnectionDB.class
 Controller\AsignarController.class
+Controller\VentaController.class
 service\ColaboradorService.class
 Controller\ConexionDBController.class
 service\AplicacionService.class
 model\Aplicacion.class
+service\VentaService.class
 Controller\AplicacionController.class
 mapper\ColaboradorMapper.class
 model\TipoSolicitud.class

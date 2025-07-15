@@ -80,6 +80,7 @@
         if (!botonAbrirModal)
             return; // Si no existe el botón, sal del script sin hacer nada
 
+        // Botón para listar las aplicaciones por cliente
         botonAbrirModal.addEventListener("click", function (e) {
             e.preventDefault();
 
@@ -125,6 +126,6 @@
     });
 
 
-
+ 
 
 </script>

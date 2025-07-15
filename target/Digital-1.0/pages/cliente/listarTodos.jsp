@@ -17,7 +17,7 @@
 
     <div id="mainContent" class="flex-grow-1 p-3">
         <h2>Lista de clientes</h2> <%-- Contenido por defecto --%>
-        
+
         <div class="row mb-4">
             <div class="col-12">
                 <div class="dashboard-card">
@@ -27,8 +27,6 @@
                             <i class="bi bi-plus-circle"></i> Nuevo Cliente
                         </button>
                     </div>
-
-
 
                     <!--Inicio div para buscar-->
                     <div class="mb-3">
@@ -65,22 +63,28 @@
                                     <td>${cliente.direccion}</td>
                                     <td>${cliente.fechaRegistro}</td>
                                     <td class="text-center">
-                                        <button class="btn btn-sm btn-outline-info me-1"><i class="bi bi-eye"></i></button>
-                                        <button class="btn btn-sm btn-outline-success me-1"><i class="bi bi-pencil-square"></i></button>
-                                        <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                        <button class="btn btn-sm btn-outline-primary me-1 btn-ver-aplicaciones"
+                                                data-id="${cliente.idCliente}"
+                                                title="Lista de aplicaciones">
+                                            <i class="bi bi-card-list"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-success btn-agregar-aplicacion"
+                                                data-id="${cliente.idCliente}"
+                                                title="Agregar aplicación">
+                                            <i class="bi bi-plus-circle"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             </c:forEach>
                         </table>
                     </div>
                     <!--Fin tabla de solicitudes-->
-                    
+
                 </div>
             </div>
         </div>
 
         <!-- Inicio modal para nuevo cliente -->
-        
         <div class="modal fade" id="modalNuevoCliente" tabindex="-1" aria-labelledby="modalNuevoClienteLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content rounded-3 shadow">
@@ -165,15 +169,69 @@
                 </div>
             </div>
         </div>
-
         <!--Fin modal para nuevo cliente-->
+
+        <!-- Inicio del modal para ver Aplicaciones pro cliente -->
+        <div class="modal fade" id="modalAplicacionesCliente" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="tituloModalAplicaciones">Aplicaciones</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="listaAplicacionesCliente">
+                            <!-- Aquí se insertarán las aplicaciones con JS -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fin del modal para ver Aplicaciones -->
+
+        <!-- Inicio del modal para Añadir Aplicación a un cliente-->
+        <div class="modal fade" id="modalAgregarAplicacion" tabindex="-1" aria-labelledby="modalAgregarAplicacionLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="modalAgregarAplicacionLabel">Agregar Aplicación</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formAgregarAplicacion">
+                            <input type="hidden" id="idClienteAgregar">
+                            <div class="mb-3">
+                                <label for="selectAplicaciones" class="form-label">Seleccione una aplicación:</label>
+                                <select class="form-select" id="selectAplicaciones" required>
+                                    <option value="">-- Seleccione una aplicación --</option>
+                                    <!-- Las opciones se cargarán dinámicamente -->
+                                </select>
+                            </div>
+                        </form>
+                        <div id="mensajeAplicacion" class="mt-2"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" form="formAgregarAplicacion" class="btn btn-success">
+                            <i class="bi bi-plus-circle me-1"></i> Agregar
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fin del modal para Añadir Aplicación -->
+
     </div>
 
     <script>
+
+
         document.getElementById("searchInput").addEventListener("keyup", function () {
             const value = this.value.toLowerCase();
             const rows = document.querySelectorAll("#tablaClientes tbody tr");
-
             rows.forEach(row => {
                 const text = row.innerText.toLowerCase();
                 row.style.display = text.includes(value) ? "" : "none";
@@ -183,7 +241,6 @@
         (() => {
             'use strict';
             const form = document.getElementById('formCliente');
-
             form.addEventListener('submit', event => {
                 if (!form.checkValidity()) {
                     event.preventDefault();
@@ -192,6 +249,132 @@
                 form.classList.add('was-validated');
             });
         })();
+
+        // Ver las aplicaciones que tiene una empresa-cliente
+        document.addEventListener('DOMContentLoaded', function () {
+            const contextPath = "/Digital"; // Ajusta si es necesario
+
+            document.querySelectorAll('.btn-ver-aplicaciones').forEach(boton => {
+                boton.addEventListener('click', async () => {
+                    const idCliente = boton.dataset.id;
+                    const nombreCliente = boton.dataset.nombre;
+
+                    try {
+                        const res = await fetch(contextPath + "/aplicacion?accion=listarPorCliente&idCliente=" + idCliente);
+                        if (!res.ok)
+                            throw new Error("Error al obtener aplicaciones");
+
+                        const aplicaciones = await res.json();
+                        console.log("Aplicaciones del cliente:", aplicaciones);
+
+                        const contenedor = document.getElementById("listaAplicacionesCliente");
+                        const titulo = document.getElementById("tituloModalAplicaciones");
+
+                        titulo.textContent = `Aplicaciones de ${nombreCliente}`;
+                        contenedor.innerHTML = "";
+
+                        if (aplicaciones.length === 0) {
+                            contenedor.innerHTML = "<p class='text-muted'>No hay aplicaciones registradas para este cliente.</p>";
+                        } else {
+                            const ul = document.createElement("ul");
+                            ul.className = "list-group";
+
+                            aplicaciones.forEach(app => {
+                                const li = document.createElement("li");
+                                li.className = "list-group-item";
+                                li.textContent = app.nombre;
+                                ul.appendChild(li);
+                            });
+
+                            contenedor.appendChild(ul);
+                        }
+
+                        const modal = new bootstrap.Modal(document.getElementById('modalAplicacionesCliente'));
+                        modal.show();
+
+                    } catch (err) {
+                        console.error("Error al cargar aplicaciones:", err);
+                        alert("Hubo un error al cargar las aplicaciones.");
+                    }
+                });
+            });
+        });
+
+
+
+
+
+        // Modal para vender una aplicación para un cliente
+        document.addEventListener("DOMContentLoaded", () => {
+            const contextPath = "/Digital";
+
+            const botonesAgregar = document.querySelectorAll(".btn-agregar-aplicacion");
+            const selectAplicaciones = document.getElementById("selectAplicaciones");
+            const inputIdCliente = document.getElementById("idClienteAgregar");
+            const mensaje = document.getElementById("mensajeAplicacion");
+            const modalAgregar = new bootstrap.Modal(document.getElementById("modalAgregarAplicacion"));
+
+            botonesAgregar.forEach(btn => {
+                btn.addEventListener("click", async () => {
+                    const idCliente = btn.getAttribute("data-id");
+                    inputIdCliente.value = idCliente;
+                    mensaje.innerHTML = "";
+
+                    try {
+                        const res = await fetch(contextPath + "/aplicacion?accion=listarNoCompradas&idCliente="+idCliente);
+                        const aplicaciones = await res.json();
+
+                        // Limpiar y cargar las opciones
+                        selectAplicaciones.innerHTML = `<option value="">-- Seleccione una aplicación --</option>`;
+                        aplicaciones.forEach(app => {
+                            const option = document.createElement("option");
+                            option.value = app.idAplicacion;
+                            option.textContent = app.nombre;
+                            selectAplicaciones.appendChild(option);
+                        });
+
+                        modalAgregar.show();
+                    } catch (err) {
+                        console.error("Error al cargar aplicaciones:", err);
+                        mensaje.innerHTML = `<div class="alert alert-danger">Error al cargar aplicaciones</div>`;
+                    }
+                });
+            });
+
+            document.getElementById("formAgregarAplicacion").addEventListener("submit", async (e) => {
+                e.preventDefault();
+                mensaje.innerHTML = "";
+
+                const idAplicacion = selectAplicaciones.value;
+                const idCliente = inputIdCliente.value;
+
+                if (!idAplicacion) {
+                    mensaje.innerHTML = `<div class="alert alert-warning">Seleccione una aplicación.</div>`;
+                    return;
+                }
+
+                try {
+                    const res = await fetch(contextPath + "/venta?accion=registrar", {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({
+                            idCliente: parseInt(idCliente),
+                            idAplicacion: parseInt(idAplicacion)
+                        })
+                    });
+
+                    if (!res.ok)
+                        throw new Error("No se pudo guardar la aplicación");
+
+                    mensaje.innerHTML = `<div class="alert alert-success">Aplicación agregada correctamente.</div>`;
+                    setTimeout(() => modalAgregar.hide(), 1500);
+
+                } catch (err) {
+                    console.error("Error al guardar aplicación:", err);
+                    mensaje.innerHTML = `<div class="alert alert-danger">Error al guardar. Intente nuevamente.</div>`;
+                }
+            });
+        });
     </script>
 
 </div>
